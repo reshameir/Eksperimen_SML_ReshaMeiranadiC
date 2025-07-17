@@ -32,8 +32,13 @@ jobs:
 
       - name: Commit processed data
         run: |
-          git config --global user.name ${{ secrets.username }}
-          git config --global user.email ${{ secrets.email }}
-          git add preprocessing/train_pca.csv preprocessing/test_pca.csv 
-          git commit -m 'Berhasil update dataset' || echo "Tidak Berhasil Mengunggah dataset terbaru"
-          git push
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add preprocessing/preprocessed/* 
+          if ! git diff-index --quiet HEAD; then
+            echo "Ada perubahan pada dataset, melakukan commit dan push..."
+            git commit -m 'Berhasil update dataset [automated]'
+            git push
+          else
+            echo "Tidak ada perubahan pada dataset, melewati commit."
+          fi
