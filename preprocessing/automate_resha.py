@@ -1,7 +1,5 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 import os
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import LabelEncoder, StandardScaler
